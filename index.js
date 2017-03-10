@@ -18,7 +18,7 @@ module.exports = {
           });
         });
       }
-      else if (/^Payload\/[^\/]*\/AppIcon57x57.png$/.test(entry.fileName)) {
+      else if (/^Payload\/[^\/]*\/AppIcon60x60@3x.png$/.test(entry.fileName)) {
         zip.openReadStream(entry, function(err, stream){
           collect(stream, function(err, src){
             data.icon = src;
