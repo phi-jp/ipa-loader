@@ -8,14 +8,23 @@ module.exports = {
   _load: function(zip, callback) {
     var data = {};
     zip.on('entry', function(entry) {
-      if (!/Payload\/[^\/]*\/Info.plist$/.test(entry.fileName)) return ;
-
-      zip.openReadStream(entry, function(err, stream){
-        collect(stream, function(err, src){
-          var metadata = bplistParse(src)[0];
-          data.metadata = metadata;
+      // console.log(entry.fileName);
+      
+      if (/Payload\/[^\/]*\/Info.plist$/.test(entry.fileName)) {
+        zip.openReadStream(entry, function(err, stream){
+          collect(stream, function(err, src){
+            var metadata = bplistParse(src)[0];
+            data.metadata = metadata;
+          });
         });
-      });
+      }
+      else if (/^Payload\/[^\/]*\/AppIcon57x57.png$/.test(entry.fileName)) {
+        zip.openReadStream(entry, function(err, stream){
+          collect(stream, function(err, src){
+            data.icon = src;
+          });
+        });
+      }
     });
 
     zip.on('end', function() {
