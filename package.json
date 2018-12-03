@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/phi-jp/ipa-loader#readme",
   "dependencies": {
-    "bplist-parser": "^0.1.1",
+    "simple-plist": "0.3.0",
     "collect-stream": "^1.2.1",
     "yauzl": "^2.7.0"
   }
