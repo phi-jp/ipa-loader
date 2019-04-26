@@ -2,7 +2,7 @@
 var fs = require('fs');
 var yauzl = require('yauzl')
 var collect = require('collect-stream');
-var bplistParse = require('bplist-parser').parseBuffer;
+var plistParse = require('simple-plist').parse;
 
 module.exports = {
   _load: function(zip, callback) {
@@ -13,7 +13,7 @@ module.exports = {
       if (/Payload\/[^\/]*\/Info.plist$/.test(entry.fileName)) {
         zip.openReadStream(entry, function(err, stream){
           collect(stream, function(err, src){
-            var metadata = bplistParse(src)[0];
+            var metadata = plistParse(src);
             data.metadata = metadata;
           });
         });
